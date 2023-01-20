@@ -1,7 +1,9 @@
-import { getMoviesSearch } from '../api/fetchAPI';
+import { getMoviesSearch, getGenres } from '../api/fetchAPI';
 import { renderGallery } from './renderMovies';
 import { refs } from './refs';
 import Notiflix from 'notiflix';
+import { addToLS } from '../utils/functionsLS';
+import { updateLastPaginationPage, pagination } from '../utils/pagination';
 
 const { moviesOnInputList, inputEl } = refs;
 
@@ -14,12 +16,17 @@ async function searchHendler(e) {
     Notiflix.Notify.failure('Please type search and try again.');
     return;
   }
+  addToLS('searchedValue', query);
+
   const data = await getMoviesSearch(query);
+  moviesOnInputList.innerHTML = '';
   if (data.total_results === 0) {
     Notiflix.Notify.failure('There is no such film');
     return;
   } else {
-    moviesOnInputList.innerHTML = '';
     renderGallery(data.results);
+    updateLastPaginationPage(data);
+    pagination.reset(data.total_pages);
+    updateLastPaginationPage(data);
   }
 }

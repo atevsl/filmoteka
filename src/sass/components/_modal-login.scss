@@ -9,6 +9,7 @@
   transition: opacity var(--duration) var(--cubic);
   background-color: var(--modal-overlay);
   overflow-y: scroll;
+  backdrop-filter: blur(15px);
 
   &.is-hidden {
     opacity: 0;
@@ -16,7 +17,7 @@
   }
 
   &.is-hidden .login-modal {
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%) scale(0.7);
   }
 }
 
@@ -31,11 +32,14 @@
   padding: var(--Gap20);
   min-width: 280px;
 
-//   @include tablet {
-//     max-width: 704px;
-//     // padding-left: var(--Gap16);
-//     // padding-right: var(--Gap16);
-//   }
+
+  @include tablet {
+    min-width: 380px;
+    
+  }
+  @include pc{
+    min-width: 450px;
+  }
 }
 
 // upwards are the styles for modal javacript
@@ -46,6 +50,10 @@
     position: absolute;
     top:8;
     left: 8;
+    @include tablet {
+        top: 20;
+        left: 20;
+      }
     &--svg {
       width: 25px;
       height: 25px;
@@ -58,7 +66,7 @@
         color: var(--accent-text-color);
     }
   }
-  &__close-button {
+  &__close-button.btn {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -69,10 +77,13 @@
     border-color: transparent;
     transition: color var(--duration) var(--cubic);
     padding: 0;
+    cursor: pointer;
+    width: auto;
+    height:auto;
 
     @include tablet {
-      top: 20px;
-      right: 20px;
+      top: 20;
+      right: 20;
     }
 
     &:hover,
@@ -88,9 +99,13 @@
     margin-bottom: 20px;
     margin-top: 35px;
     text-transform: uppercase;
+    @include pc {
+      @include font-box(null, 30px, 1.16, null);
+margin-top: 50px;
+margin-bottom: 30px;
+    }
 
     // @include pc {
-    //   @include font-box(null, 30px, 1.16, null);
     //   max-width: 500px;
     //   margin-left: auto;
     //   margin-right: auto;
@@ -100,23 +115,18 @@
   &__svg {
     width: 20px;
     height: 20px;
-    margin-left: 10px;
-
-    // @include tablet {
-    //   width: 24px;
-    //   height: 24px;
-    // }
   }
 
   &__text {
-    @include font-box(400, 12px, 1.1, null);
+    @include font-box(500, 12px, 1.1, null);
     color: var(--black-text-color);
     margin-bottom: 10px;
     text-align: center;
 
-    // @include tablet {
-    //   font-size: 16px;
-    // }
+    @include tablet {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
   }
 }
 
@@ -126,7 +136,7 @@
 
   &__input {
     width: 100%;
- 
+ @include font-box(500,12px,1.15);
     background-color: var(--lightBG);
     border: transparent;
     border-bottom: 1px solid var(--accentBG);
@@ -134,14 +144,14 @@ outline: transparent;
     padding: 7px 12px;
     transition: border-color var(--duration) var(--cubic), outline var(--duration) var(--cubic);
 
-    // @include tablet {
-    //   max-width: 368px;
-    //   display: block;
-    //   margin-right: auto;
-    //   margin-left: auto;
-    //   margin-bottom: var(--Gap16);
-    //   padding: 11px 16px;
-    // }
+    @include tablet {
+      max-width: 368px;
+      display: block;
+      margin-right: auto;
+      margin-left: auto;
+      padding: 13px 20px;
+      font-size: 14px;
+    }
 
     &:focus {
       outline: 1px solid var(--accentBG);
@@ -149,15 +159,19 @@ outline: transparent;
     }
 
     &::placeholder {
-      @include font-box(400, 12px, 1.4, null);
+      @include font-box(500, 12px, 1.4, null);
       color: var(--dark-text-color);
 
-    //   @include tablet {
-    //     font-size: 14px;
-    //   }
+      @include tablet {
+        font-size: 14px;
+      }
+  
     }
-    &:not(:last-of-type) {
+    &:not(:last-child) {
         margin-bottom: 12px;
+        @include tablet {
+          margin-bottom: var(--Gap20);
+        }
     }
   }
 }
@@ -166,30 +180,22 @@ outline: transparent;
   display: block;
   margin-right: auto;
   margin-left: auto;
-  
+  cursor: pointer;
 
 border: 1px solid var(--accentBG);
-    border-radius: 5px;
-    text-transform: uppercase;
-  @include font-box(500, 12px, 1.33, null);
-  transition: color var(--duration) var(--cubic),
-    background-color var(--duration) var(--cubic);
-
     &--login {
         background-color: var(--accent-text-color);
         color: var(--white-text-color);
-            padding: 10px 25px;
             margin-bottom: var(--Gap20);
             &:hover,
             :focus {
                     background-color: transparent;
-                    color: var(--black-text-color);
+                    color: var(--accent-text-color);
+
                 }
         }
     &--signup {
-        background-color: transparent;
-        color: var(--black-text-color);
-        padding: 10px 20px;
+        color: var(--accent-text-color);
         &:hover,
             :focus {
                 background-color: var(--accent-text-color);
@@ -197,3 +203,4 @@ border: 1px solid var(--accentBG);
             }
     }
 }
+

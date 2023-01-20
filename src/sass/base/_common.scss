@@ -1,5 +1,13 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 
+main {
+  padding: 20px 0 40px 0;
+
+  @include tablet {
+    padding: 40px 0 60px 0;
+  }
+}
+
 .container {
   padding-left: 20px;
   padding-right: 20px;
@@ -15,7 +23,7 @@
   }
 
   @include pc {
-    width: 1200px;
+    width: 1280px;
   }
 }
 
